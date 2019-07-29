@@ -37,23 +37,32 @@ class TodoListItem extends React.Component {
     super(props);
 
     this.state = {
-      done: false
+      clickDone: false,
+      hoverDone: false
     };
+
   }
 
   onListItemClick() {
     this.setState({
-      done: !this.state.done
+      clickDone: !this.state.clickDone
     });
   }
 
+  onListItemHover() {
+    this.setState({
+      hoverDone: !this.state.hoverDone
+    });
+  }
+  
   render() {
     var style = {
-      fontWeight: this.state.done ? 'bold' : 'normal'
+      textDecoration: this.state.clickDone ? 'line-through' : 'none',
+      fontWeight: this.state.hoverDone ? 'bold' : 'normal'
     };
 
     return (
-        <li style={style} onMouseOver={this.onListItemClick.bind(this)}>{this.props.todo}</li>
+        <li style={style} onClick={this.onListItemClick.bind(this)} onMouseOver={this.onListItemHover.bind(this)}>{this.props.todo}</li>
 
     )
   }
