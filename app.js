@@ -1,59 +1,85 @@
 // TODO
-// var App = () => (
-//   <div>
-//     <h1>Grocery List</h1>
-//     <GroceryList todos={['Almonds', 'Yogurt', 'Lemons']} />
-//   </div>
+
+var groceryItems = ['yogurt', 'cereal', 'almonds'];
+
+
+//       // using functional stateless components
+// var GroceryListItem = (props) => (//App
+//   <li>
+//     {props.item}
+//   </li>
+
 // );
 
-// var GroceryList = (props) => (
-//   <ul>
-//     <li>{props.todos[0]}</li>
-//     <li>{props.todos[1]}</li>
-//     <li>{props.todos[2]}</li>
-//   </ul>
+// var GroceryList = (props) => ( //TodoList
+//     // <ul>
+//     //   <li>{props.list[0]}</li>
+//     //   <li>{props.list[1]}</li>
+//     //   <li>{props.list[2]}</li>
+//     // </ul>
+
+//     // we want to iterate over props and put it in list format
+//     <ul>
+//       {props.list.map(item =>
+//     <GroceryListItem item={item}/>
+//       )}
+
+//     </ul>
 // );
 
-var GroceryListItem = (props) => (
-  <div>{props}</div>;
-  );
+// ReactDOM.render(<GroceryList list={groceryItems}/>, document.getElementById("app"));
 
-var groceryItems = ['Almonds', 'Yogurt', 'Lemons'];
 
-var groceryList = [];
-var GroceryList = (array) => (
-  array.forEach((item) => {
-    groceryList.push(
-      <div>
-        GroceryListItem(item)
-      </div>
+      // using class based components
+
+class TodoListItem extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      done: false
+    };
+  }
+
+  onListItemClick() {
+    this.setState({
+      done: !this.state.done
+    });
+  }
+
+  render() {
+    var style = {
+      fontWeight: this.state.done ? 'bold' : 'normal'
+    };
+
+    return (
+        <li style={style} onMouseOver={this.onListItemClick.bind(this)}>{this.props.todo}</li>
+
     )
-  })
-)
+  }
+}
 
-var App = () => (
-  <div>
-    <h1>Grocery List</h1>
-    <GroceryList />
-  </div>
-)
+var TodoList = (props) => (
+  <ul>
+    {props.todos.map(todo =>
+    <TodoListItem todo={todo}/>
+    )}
+  </ul>
+);
 
-// <div id='grocery'>
-// <h1>Grocery List</h1>
-// <Almonds />
-// <Yogurt />
-// </div>
 
-// var Almonds = () => (
-//   <div id='almonds'>
-//     <p>almonds</p>
-//   </div>
-// )
 
-// var Yogurt = () => (
-//   <div id='yogurt'>
-//     <p>yogurt</p>
-//   </div>
-// )
+ReactDOM.render(<TodoList todos={groceryItems}/>, document.getElementById("app"));
 
-ReactDOM.render(<App />, document.getElementById("app"));
+
+
+
+// // var Cucumbers = () => (
+// //   <li>cucumbers</li>
+// // );
+
+// // var Kale = () => (
+// //   <li>kale</li>
+// // );
+
+
